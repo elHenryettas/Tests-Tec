@@ -23,6 +23,9 @@ const java: ILenguage = {
     age: 1800
 }
 /*  */
+
+
+/* 
 interface Ifetch {
     name: string,
     email:string,
@@ -35,6 +38,11 @@ const fetchData = (apiUrl: string): Promise<Ifetch> => {
 }; 
 
 const data: Ifetch = fetchData("myAwsomeApi.com/data/");
+ */
+
+
+
+
 /* console.log(data.name);
 console.log(data.email);
 console.log(data.age);
