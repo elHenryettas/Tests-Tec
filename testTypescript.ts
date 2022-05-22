@@ -146,8 +146,17 @@ const Managers:IManagers[]  =[
   // 5 Arreglo ordenado decrecientemente con los m2 totales de cada campo que tengan más de 2 hectáreas en Paltos
   function biggestAvocadoFarms() {
     // CODE HERE
+    const idAvocado : {name:string, id :number} = PType.find(e => e.name === "PALTOS")
+
+    if(!idAvocado) return "no hay PALTOS entre los tipos de cultivo"
+
+    const avocados: number[] = Paddocks.filter(e=> e.paddockTypeId === idAvocado.id && e.area > 2000).map(e => e.area)
+ 
+    return avocados.sort()
+   
   }
-  
+  /* console.log(biggestAvocadoFarms()) */
+
   // 6 Arreglo con nombres de los administradores de la FORESTAL Y AGRÍCOLA LO ENCINA, ordenados por nombre, que trabajen más de 1000 m2 de Cerezas
   function biggestCherriesManagers() {
     // CODE HERE
