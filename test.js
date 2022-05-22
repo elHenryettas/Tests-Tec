@@ -183,6 +183,7 @@ function farmManagerNames() {
           .map((e) => e.paddockManagerId)
       ),
     ];
+    
     for (let l = 0; l < paddockManagers.length; l++) {
       for (let f = 0; f < a.length; f++) {
         if (paddockManagers[l].id === a[f]) {
@@ -196,7 +197,7 @@ function farmManagerNames() {
   return obj;
 }
 
-
+console.log(farmManagerNames())
 
 
 

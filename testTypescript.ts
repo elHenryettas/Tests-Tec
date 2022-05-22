@@ -78,19 +78,70 @@ const Managers:IManagers[]  =[
 
   // 2 Arreglo con los nombres de cada tipo de cultivo, ordenados decrecientemente por la suma TOTAL de la cantidad de hectáreas plantadas de cada uno de ellos.
   function sortPaddockTypeByTotalArea() {
+
     // CODE HERE
-    
+    const auxArray: {name:string, area:number}[]= []
+
+    for (let i = 0; i < PType.length; i++) {
+      const areaCultivo: number= Paddocks.filter(element=> element.paddockTypeId=== PType[i].id)
+      .reduce((counter,element) =>{return element.area + counter},0)
+      
+      let obj:{name:string, area:number} = {area: areaCultivo, name:PType[i].name}
+      auxArray.push(obj)
+    }
+    return auxArray.sort((a,b)=>{
+      if(a.area< b.area) return 1
+      if(a.area> b.area) return -1
+      return 0
+    }).map(e=> e.name)
   }
- 
+/* console.log(sortPaddockTypeByTotalArea()) */
+
   // 3 Arreglo con los nombres de los administradores, ordenados decrecientemente por la suma TOTAL de hectáreas que administran.
   function sortFarmManagerByAdminArea() {
     // CODE HERE
+    const auxArray:{name:string, area:number}[] =[]
+    for (let i = 0; i < Managers.length; i++) {
+      const hectareas: number = Paddocks.filter(element =>element.paddockManagerId === Managers[i].id )
+      .reduce((counter, element)=>{return element.area + counter},0) 
+      let obj:{name:string, area:number} = {name: Managers[i].name, area: hectareas}
+      auxArray.push(obj)
+    }
+    return auxArray.sort((a,b)=>{
+      if(a.area< b.area) return 1
+      if(a.area> b.area) return -1
+      return 0
+    }).map(e=> e.name)
   }
+  /* console.log(sortFarmManagerByAdminArea()) */
   
   // 4 Objeto en que las claves sean los nombres de los campos y los valores un arreglo con los ruts de sus administradores ordenados alfabéticamente por nombre.
   function farmManagerNames() {
     // CODE HERE
+    const objCampos: {} = {}
+
+    for (let i = 0; i < farms.length; i++) {
+      
+
+      const idAdmin : number[] = Array.from(new Set(Paddocks.filter(element => element.farmId === farms[i].id)
+      .map(e => e.paddockManagerId)))
+
+      const namesAdmins: string[] = Managers.filter(admins => {
+         for (let x = 0; x < idAdmin.length; x++) {
+           if(admins.id === idAdmin[x]) return admins
+
+
+
+
+         }}
+      ).map(e => e.name)
+
+      objCampos[farms[i].name]= namesAdmins.sort()
+    }
+
+    return objCampos
   }
+  /* console.log(farmManagerNames()) */
   
   // 5 Arreglo ordenado decrecientemente con los m2 totales de cada campo que tengan más de 2 hectáreas en Paltos
   function biggestAvocadoFarms() {
