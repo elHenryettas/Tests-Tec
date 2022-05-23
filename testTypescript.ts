@@ -146,11 +146,11 @@ const Managers:IManagers[]  =[
   // 5 Arreglo ordenado decrecientemente con los m2 totales de cada campo que tengan más de 2 hectáreas en Paltos
   function biggestAvocadoFarms() {
     // CODE HERE
-    const idAvocado : {name:string, id :number} = PType.find(e => e.name === "PALTOS")
+    const idCultivo : {name:string, id :number} = PType.find(e => e.name === "PALTOS")
 
-    if(!idAvocado) return "no hay PALTOS entre los tipos de cultivo"
+    if(!idCultivo) return "no hay PALTOS entre los tipos de cultivo"
 
-    const avocados: number[] = Paddocks.filter(e=> e.paddockTypeId === idAvocado.id && e.area > 2000).map(e => e.area)
+    const avocados: number[] = Paddocks.filter(e=> e.paddockTypeId === idCultivo.id && e.area > 2000).map(e => e.area)
  
     return avocados.sort()
    
@@ -160,17 +160,62 @@ const Managers:IManagers[]  =[
   // 6 Arreglo con nombres de los administradores de la FORESTAL Y AGRÍCOLA LO ENCINA, ordenados por nombre, que trabajen más de 1000 m2 de Cerezas
   function biggestCherriesManagers() {
     // CODE HERE
+    const idFarm: {id:number,name:string} = farms.find(e => e.name ==="FORESTAL Y AGRICOLA LO ENCINA")
+    const idCultivo:{name:string, id :number} = PType.find(e => e.name === "CEREZAS")
+
+    if(!idCultivo || !idFarm) return "Datos ingresados no existentes en la base de datos"
+
+    const idAdmins: number[] = Array.from(new Set(Paddocks.filter(e => e.area > 1000 && e.farmId === idFarm.id && e.paddockTypeId === idCultivo.id).map(e => e.paddockManagerId))) 
+    
+    const nombres: string[] = Managers.filter(manager =>{
+      for (let i = 0; i < idAdmins.length; i++) {
+        if(manager.id === idAdmins[i]) return manager
+      }
+    }).map(e=>e.name)
+    
+    if(nombres.length <= 0) return "No hay administradores que coincidan con los datos ingresados"
+
+    return nombres.sort()
   }
+ /*  console.log(biggestCherriesManagers()) */
   
   // 7 Objeto en el cual las claves sean el nombre del administrador y el valor un arreglo con los nombres de los campos que administra, ordenados alfabéticamente
   function farmManagerPaddocks() {
     // CODE HERE
+    let objAdmins: {} = {}
+    for (let i = 0; i < Managers.length; i++) {
+      const fieldAdmin: number[] = Array.from(new Set(Paddocks.filter(e=> e.paddockManagerId === Managers[i].id).map(e => e.farmId)))
+
+      const arrayNames: string[] = []
+
+      for (let z = 0; z < fieldAdmin.length; z++) {
+        for (let x = 0; x < farms.length; x++) {
+          if(fieldAdmin[z]=== farms[x].id)arrayNames.push(farms[x].name)
+        }  
+      }
+      objAdmins[Managers[i].name] = arrayNames.sort()
+    }
+    return objAdmins
+
   }
-  
+/*   console.log(farmManagerPaddocks()) */
+
   // 8 Objeto en que las claves sean el tipo de cultivo concatenado con su año de plantación (la concatenación tiene un separador de guión ‘-’, por ejemplo AVELLANOS-2020) y el valor otro objeto en el cual la clave sea el id del administrador y el valor el nombre del administrador
   function paddocksManagers() {
     // CODE HERE
+    const obj: {} = {}
+    for (let i = 0; i < Paddocks.length; i++) {
+      const type: string = PType.find(e=> e.id === Paddocks[i].paddockTypeId).name
+      const year: string = Paddocks[i].harvestYear.toString()
+      const adminId: string = Paddocks[i].paddockManagerId.toString()
+      const adminName:string = Managers.find(e => e.id === Paddocks[i].paddockManagerId).name
+
+      obj[`${type}-${year}`] = {[adminId]: adminName}
+          
+    }
+    return obj
   }
+  /* console.log(paddocksManagers()) */
   
   /*  9 Agregar nuevo administrador con datos ficticios a "paddockManagers" y agregar un nuevo cuartel de tipo NOGALES con 900mts2, año 2017 de AGRICOLA SANTA ANA, administrado por este nuevo administrador 
    Luego devolver el lugar que ocupa este nuevo administrador en el ranking de la pregunta 3.
