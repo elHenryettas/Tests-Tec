@@ -187,7 +187,7 @@ function farmManagerNames() {
     for (let l = 0; l < paddockManagers.length; l++) {
       for (let f = 0; f < a.length; f++) {
         if (paddockManagers[l].id === a[f]) {
-          nombres.push(paddockManagers[l].name);
+          nombres.push(paddockManagers[l].taxNumber);
         }
       }
     }
