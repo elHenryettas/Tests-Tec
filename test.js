@@ -187,11 +187,17 @@ function farmManagerNames() {
     for (let l = 0; l < paddockManagers.length; l++) {
       for (let f = 0; f < a.length; f++) {
         if (paddockManagers[l].id === a[f]) {
-          nombres.push(paddockManagers[l].taxNumber);
+          nombres.push({taxNumber:paddockManagers[l].taxNumber, name: paddockManagers[l].name});
         }
       }
-    } 
-    obj[farms[i - 1].name] = nombres;
+    }
+    nombres.sort((t1, t2) => {
+      if (t1.name > t2.name) return 1; 
+      if (t1.name < t2.name) return -1; 
+      return 0;
+    })/*  */
+
+    obj[farms[i - 1].name] = nombres.map(e => e.taxNumber);
   }
   return obj;
 }
