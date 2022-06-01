@@ -135,7 +135,7 @@ function sortFarmManagerByAdminArea() {
 
   return newArr.sort((a, b) => a.areatotal - b.areatotal).map((e) => e.name);
 }
-console.log(sortFarmManagerByAdminArea() )
+/* console.log(sortFarmManagerByAdminArea() ) */
 
 
 
@@ -330,19 +330,43 @@ return objetoFinal
 // 9 Agregar nuevo administrador con datos ficticios a "paddockManagers" y agregar un nuevo cuartel de tipo NOGALES con 900mts2, año 2017 de AGRICOLA SANTA ANA, administrado por este nuevo administrador 
 // Luego devolver el lugar que ocupa este nuevo administrador en el ranking de la pregunta 3.
 // No modificar arreglos originales para no alterar las respuestas anteriores al correr la solución
-function newManagerRanking() {
+function newManagerRanking(id,taxNumber, name) {
   // CODE HERE
-  const newPaddockManagers = [...paddockManagers, { id: 7, taxNumber: '74862457', name: 'HENRYETTAS' }]
-  const newPaddocks = [...paddocks, { paddockManagerId: 7, farmId: 1, paddockTypeId: 4, harvestYear: 2017, area: 900 }];
+  const argumentsData = {
+    id: id ? id : 10,
+    taxNumber: taxNumber ? taxNumber : "32322232",
+    name: name ? name : "Henryettas"
+  }
+  const newPaddockManagers = [...paddockManagers, { id: argumentsData.id,
+    taxNumber: argumentsData.taxNumber,
+    name: argumentsData.name }]
 
-  newArr = [];
+  const newPaddocks = [...paddocks, {
+    paddockManagerId: argumentsData.id,
+    farmId: 2,
+    paddockTypeId: 4,
+    harvestYear: 2017,
+    area: 900}];
 
-    for(let i = 1; i <= newPaddockManagers.length ;i++){
-        let areatotal = newPaddocks.filter(e => e.newPaddockManagers === i).reduce((total, item) => item.area + total, 0);
-        newArr.push({areatotal: areatotal, name: newPaddockManagers[i-1].name});
+  const areaAdmins = newPaddockManagers
+      .map(admin =>{
+        const area = newPaddocks.filter(field => field.paddockManagerId === admin.id)
+        .reduce((a,b)=>{
+         return a + b.area
+        },0)
+        return {name:admin.name, area:area}
+      })
+      .sort((a,b)=>{
+        if(a.area<b.area)return 1
+        if(a.area>b.area)return -1
+        return 0
+      })
 
-    }
+      for (let i = 0; i < areaAdmins.length; i++) {
+        if(areaAdmins[i].name === argumentsData.name) return `El lugar que ocupa el nuevo Administrador "${argumentsData.name}" en orden Descendente segun el area administrada es en el puesto numero ${i+1}`
+      }
+      return "Algo salio mal"
 
-    return newArr.sort((a,b) => a.areatotal - b.areatotal).map(e => e.name);
   
 }
+console.log(newManagerRanking())

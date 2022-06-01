@@ -255,5 +255,5 @@ const Managers:IManagers[]  =[
       }
       return "Algo salio mal"
     }
-    /* console.log(newManagerRanking()) */
+    console.log(newManagerRanking())
   
