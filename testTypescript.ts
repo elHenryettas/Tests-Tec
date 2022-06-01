@@ -215,7 +215,7 @@ const Managers:IManagers[]  =[
   /*  9 Agregar nuevo administrador con datos ficticios a "paddockManagers" y agregar un nuevo cuartel de tipo NOGALES con 900mts2, año 2017 de AGRICOLA SANTA ANA, administrado por este nuevo administrador 
    Luego devolver el lugar que ocupa este nuevo administrador en el ranking de la pregunta 3.
   No modificar arreglos originales para no alterar las respuestas anteriores al correr la solución */
-  function newManagerRanking(id?: number ,taxNumber?:string, name?:string): string {
+  function newManagerRanking(id?: number ,taxNumber?:string, name?:string): string | number{
     // CODE HERE
     const argumentsData:IManagers = {
       id: id ? id : 10,
@@ -251,7 +251,7 @@ const Managers:IManagers[]  =[
       })
 
       for (let i = 0; i < areaAdmins.length; i++) {
-        if(areaAdmins[i].name === argumentsData.name) return `El lugar que ocupa el nuevo Administrador "${argumentsData.name}" en orden Descendente segun el area administrada es en el puesto numero ${i+1}`
+        if(areaAdmins[i].name === argumentsData.name) return i+1/* `El lugar que ocupa el nuevo Administrador "${argumentsData.name}" en orden Descendente segun el area administrada es en el puesto numero ${i+1}` */
       }
       return "Algo salio mal"
     }

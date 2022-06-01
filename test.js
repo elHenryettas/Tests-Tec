@@ -363,7 +363,7 @@ function newManagerRanking(id,taxNumber, name) {
       })
 
       for (let i = 0; i < areaAdmins.length; i++) {
-        if(areaAdmins[i].name === argumentsData.name) return `El lugar que ocupa el nuevo Administrador "${argumentsData.name}" en orden Descendente segun el area administrada es en el puesto numero ${i+1}`
+        if(areaAdmins[i].name === argumentsData.name) return i+1/* `El lugar que ocupa el nuevo Administrador "${argumentsData.name}" en orden Descendente segun el area administrada es en el puesto numero ${i+1}` */
       }
       return "Algo salio mal"
 
