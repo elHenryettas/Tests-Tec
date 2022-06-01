@@ -190,8 +190,7 @@ function farmManagerNames() {
           nombres.push(paddockManagers[l].taxNumber);
         }
       }
-    }
-    nombres.sort();
+    } 
     obj[farms[i - 1].name] = nombres;
   }
   return obj;
