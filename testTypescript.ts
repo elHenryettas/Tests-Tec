@@ -103,13 +103,14 @@ const Managers:IManagers[]  =[
       let obj:{name:string, area:number} = {name: Managers[i].name, area: hectareas}
       auxArray.push(obj)
     }
+    
     return auxArray.sort((a,b)=>{
       if(a.area< b.area) return 1
       if(a.area> b.area) return -1
       return 0
     }).map(e=> e.name)
   }
- /* console.log(sortFarmManagerByAdminArea()) */
+/*  console.log(sortFarmManagerByAdminArea()) */
   
   // 4 Objeto en que las claves sean los nombres de los campos y los valores un arreglo con los ruts de sus administradores ordenados alfabéticamente por nombre.
   function farmManagerNames(): {} {
@@ -135,7 +136,7 @@ const Managers:IManagers[]  =[
     }
     return objCampos
   }
-  console.log(farmManagerNames())
+  /* console.log(farmManagerNames()) */
  
   // 5 Arreglo ordenado decrecientemente con los m2 totales de cada campo que tengan más de 2 hectáreas en Paltos
   function biggestAvocadoFarms(): number[] | string {
@@ -146,10 +147,10 @@ const Managers:IManagers[]  =[
 
     const avocados: number[] = Paddocks.filter(e=> e.paddockTypeId === idCultivo.id && e.area > 2000).map(e => e.area)
   
-    return avocados.sort((n1,n2)=> n1 - n2);
+    return avocados.sort((n1,n2)=> n2 - n1);
    
   }
-  /* console.log(biggestAvocadoFarms()) */
+/*   console.log(biggestAvocadoFarms()) */
 
   // 6 Arreglo con nombres de los administradores de la FORESTAL Y AGRÍCOLA LO ENCINA, ordenados por nombre, que trabajen más de 1000 m2 de Cerezas
   function biggestCherriesManagers(): string[] | string {

@@ -124,17 +124,20 @@ return otroArr;
 // 3 Arreglo con los nombres de los administradores, ordenados decrecientemente por la suma TOTAL de hectáreas que administran.
 function sortFarmManagerByAdminArea() {
   // CODE HERE
-  /* newArr = [];
+  newArr = [];
 
-  for (let i = 1; i <= paddockManagers.length; i++) {
-    let areatotal = paddocks
-      .filter((e) => e.paddockManagers === i)
-      .reduce((total, item) => item.area + total, 0);
-    newArr.push({ areatotal: areatotal, name: paddockManagers[i - 1].name });
+  for (let i = 0; i < paddockManagers.length; i++) {
+    const hectareas = paddocks.filter(element => element.paddockManagerId === paddockManagers[i].id )
+    .reduce((counter, element)=>{return element.area + counter},0) 
+    let obj = {name: paddockManagers[i].name, area: hectareas}
+    newArr.push(obj)
   }
 
-  return newArr.sort((a, b) => a.areatotal - b.areatotal).map((e) => e.name); */
+  return newArr.sort((a, b) => a.areatotal - b.areatotal).map((e) => e.name);
 }
+console.log(sortFarmManagerByAdminArea() )
+
+
 
 function newManagerRanking() {
   // CODE HERE
@@ -202,15 +205,7 @@ function farmManagerNames() {
   return obj;
 }
 
-console.log(farmManagerNames())
-
-
-
-
-
-
-
-
+/* console.log(farmManagerNames()) */
 
 
 
