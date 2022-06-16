@@ -76,7 +76,7 @@ function sortPaddockTypeByTotalArea() {
   
    
   //! este es el mio a principios del PG
- /*   return paddockType.map(cultivos =>{
+   return paddockType.map(cultivos =>{
     return{
       name: cultivos.name,
       hectareas:paddocks.filter(e => e.paddockTypeId === cultivos.id)
@@ -88,11 +88,11 @@ function sortPaddockTypeByTotalArea() {
     }
    }).sort((a,b) => b.hectareas - a.hectareas).map(e => e.name)
  
-  */
+ 
 
 
 //! este lo hice durante el M2
-
+/* 
    let newArr = [];
 
 for (let i = 1; i < paddockType.length + 1; i++) {
@@ -112,11 +112,11 @@ for (let i = 0; i < newArr.length; i++) {
 } 
 
 return otroArr;
- 
+  */
 
 }
 
-/* console.log(sortPaddockTypeByTotalArea()) */
+console.log(sortPaddockTypeByTotalArea())
 
 
 
@@ -210,43 +210,43 @@ function farmManagerNames() {
 
 
 // 6 Arreglo con nombres de los administradores de la FORESTAL Y AGRÍCOLA LO ENCINA, ordenados por nombre, que trabajen más de 1000 m2 de Cerezas
+/*  let newArray = [
+   ...new Set(
+     paddocks
+     .filter((p) => p.paddockTypeId === 3 && p.area > 1000)
+       .map((p) => p.paddockManagerId)
+   ),
+ ];
+
+ let cerezeros = [];
+ for (let i = 0; i < paddockManagers.length; i++) {
+   for (let f = 0; f < newArray.length; f++) {
+     if (paddockManagers[i].id === newArray[f]) {
+       cerezeros.push(paddockManagers[i].name);
+     }
+   }
+ }
+ cerezeros.sort();
+
+ return cerezeros; */
 function biggestCherriesManagers() {
   // CODE HERE
- /*  let newArray = [
-    ...new Set(
-      paddocks
-      .filter((p) => p.paddockTypeId === 3 && p.area > 1000)
-        .map((p) => p.paddockManagerId)
-    ),
-  ];
-
-  let cerezeros = [];
-  for (let i = 0; i < paddockManagers.length; i++) {
-    for (let f = 0; f < newArray.length; f++) {
-      if (paddockManagers[i].id === newArray[f]) {
-        cerezeros.push(paddockManagers[i].name);
-      }
-    }
-  }
-  cerezeros.sort();
-
-  return cerezeros; */
 
   let validados = paddocks.filter(e => e.paddockTypeId === 3 && e.area > 1000)
   let ids = validados.map(e => {
     let admin = paddockManagers[e.paddockManagerId-1]
   return admin.name
   })
- /*  let nombres = ids.map(e=>{
-    let name =  paddockManagers[e-1]
-    return name.name
-  }) */
-  
   return [... new Set(ids)]
-
-
-
-//!                                                                                                               
+  
+  
+  
+  //!                                                                                                               
+  /*  let nombres = ids.map(e=>{
+     let name =  paddockManagers[e-1]
+     return name.name
+   }) */
+   
 //!                                                                                                               
 //!                                                                                                               
 //!                                                                                                               
@@ -369,4 +369,4 @@ function newManagerRanking(id,taxNumber, name) {
 
   
 }
-console.log(newManagerRanking())
+/* console.log(newManagerRanking()) */
